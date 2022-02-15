@@ -1,0 +1,17 @@
+[33mcommit d6bd685ee5c07e4ec81209770bf4eab66b2ae2cc[m[33m ([m[1;36mHEAD -> [m[1;32mCardAppWithHooks[m[33m)[m
+Author: Jorge Luna Gaytan <jorge.luna.gaytan@accenture.com>
+Date:   Tue Feb 15 15:40:30 2022 -0600
+
+    Some modifications (stylizing code)
+
+[33mcommit d4b10d00e9e45c66ab40ab880931ec426da4022e[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Jorge Luna Gaytan <jorge.luna.gaytan@accenture.com>
+Date:   Tue Feb 15 11:58:39 2022 -0600
+
+    First upload
+
+[33mcommit bf6144c3da13cc7bbcdb58a92bfcbe1693c9f86f[m
+Author: Jorge Luna Gaytan <jorge.luna.gaytan@accenture.com>
+Date:   Fri Feb 11 17:52:06 2022 -0600
+
+    Initialize project using Create React App

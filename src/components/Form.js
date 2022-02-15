@@ -1,12 +1,12 @@
 import React from 'react';
-import axios from 'axios';
+import { GetGithubProfile } from '../scripts/calls';
 
 class Form extends React.Component{
     state = { userName : '' };
-
+    
     handleSubmit = async (event) => {
         event.preventDefault();
-        const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`);
+        const resp = await GetGithubProfile(this.state.userName);
         this.props.onSubmit(resp.data);
         this.setState({ userName : ''});
     };
@@ -14,6 +14,7 @@ class Form extends React.Component{
     render(){
         return(
             <form onSubmit={this.handleSubmit}>
+             
                 <input 
                     type="text" 
                     placeholder="Github Username" 

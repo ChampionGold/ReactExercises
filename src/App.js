@@ -18,7 +18,6 @@ class App extends React.Component {
           profileListSuper : [...prevState.profileListSuper,profileData],
         }));
 
-        
     }
 
     render(){

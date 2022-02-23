@@ -1,5 +1,5 @@
 import React from "react";
-import utils from "../scripts/utils";
+
 
 //Status colors
 const colors = {

@@ -1,7 +1,6 @@
 import React from 'react';
-import GithubCardsApp from './components/GithubCardsApp';
-import StarMatchGameContainer from './components/StarMatchGameContainer';
-
+import StarMatchGameContainer from './components/StarMatch/StarMatchGameContainer';
+import GithubCardsApp from './components/GithubCardsApp/GithubCardsApp';
 
 
 
@@ -9,6 +8,7 @@ class App extends React.Component {
   render(){
     return(
       <>
+        {/* <GithubCardsApp /> */}
         <StarMatchGameContainer/>
       </>
     );

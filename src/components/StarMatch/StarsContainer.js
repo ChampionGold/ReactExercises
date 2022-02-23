@@ -1,5 +1,5 @@
 import React from "react";
-import utils from "../scripts/utils";
+import utils from "../../scripts/utils";
 import EndGame from "./EndGame";
 
 const StarsContainer = (props) => {

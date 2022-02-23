@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from "react";
 import NumberButton from "./NumberButton";
 import StarsContainer from "./StarsContainer";
-import utils from "../scripts/utils";
+import utils from "./../../scripts/utils"
 
 const StarMatchGame = (props) => {
     const defaultSecondsOfGame = 12; //Default number of seconds for the game (just to not write this number all over the code)
@@ -63,14 +63,6 @@ const StarMatchGame = (props) => {
             setCandidateNums([]);
         }
 
-    };
-
-    //Restart game function
-    const restartGame = () => {
-        setAvailableNums(utils.range(1,9));
-        setCandidateNums([]);
-        setStars(utils.random(1,9));
-        setSecondsLeft(defaultSecondsOfGame);
     };
     
     //Render components

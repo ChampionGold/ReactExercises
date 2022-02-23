@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetGithubProfile } from '../scripts/calls';
+import { GetGithubProfile } from './../../scripts/calls';
 
 class Form extends React.Component{
     state = { userName : '' };

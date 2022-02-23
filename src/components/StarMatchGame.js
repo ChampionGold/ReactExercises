@@ -3,7 +3,7 @@ import NumberButton from "./NumberButton";
 import StarsContainer from "./StarsContainer";
 import utils from "../scripts/utils";
 
-const StarMatchGame = () => {
+const StarMatchGame = (props) => {
     const defaultSecondsOfGame = 12; //Default number of seconds for the game (just to not write this number all over the code)
     const [stars,setStars] = useState(utils.random(1,9)); //Stars
     const [availableNums,setAvailableNums] = useState(utils.range(1,9)); //Available numbers
@@ -89,7 +89,7 @@ const StarMatchGame = () => {
         <div className="row">
 
             <div className="col-md-6 star-match-container">
-                <StarsContainer stars={stars} gameStatus={gameStatus} onEnd={restartGame} />
+                <StarsContainer stars={stars} gameStatus={gameStatus} onEnd={props.startNewGame} />
             </div>
             <div className="col-md-6 star-match-container">
                 <div className="number-container">

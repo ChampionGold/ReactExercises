@@ -4,18 +4,17 @@ import StarsContainer from "./StarsContainer";
 import utils from "../scripts/utils";
 
 const StarMatchGame = () => {
-    const defaultSecondsOfGame = 12;
-    const [stars,setStars] = useState(utils.random(1,9));
-    const [availableNums,setAvailableNums] = useState(utils.range(1,9));
-    const [candidateNums,setCandidateNums] = useState([]);
-    const [secondsLeft,setSecondsLeft] = useState(defaultSecondsOfGame);
+    const defaultSecondsOfGame = 12; //Default number of seconds for the game (just to not write this number all over the code)
+    const [stars,setStars] = useState(utils.random(1,9)); //Stars
+    const [availableNums,setAvailableNums] = useState(utils.range(1,9)); //Available numbers
+    const [candidateNums,setCandidateNums] = useState([]); //Candidate Nunbers
+    const [secondsLeft,setSecondsLeft] = useState(defaultSecondsOfGame); //Time
     
-
+    //This side effect has the responsability of the timer
     useEffect(() => {
-        if(secondsLeft > 0){
+        if(secondsLeft > 0 && gameStatus !== 'won'){
            const timerId = setTimeout(() => {setSecondsLeft(secondsLeft-1)},1000);
            return () => clearTimeout(timerId);
-
         }
     });
 
@@ -43,16 +42,21 @@ const StarMatchGame = () => {
 
     //Function that defines what happens when you click on a number button
     const onClickNumber = (number,currentStatus) => {
-        if(currentStatus === 'used')
-            return; //do nothing
         
+        if(currentStatus === 'used' || gameStatus !== 'active')
+            return; //If number is already used or game is over, do nothing
+        
+        //Add number to candidate number temp list
         const newCandidateNums = 
             currentStatus === 'available' ? candidateNums.concat(number) : candidateNums.filter(cn => cn !== number);
 
+        
         if(utils.sum(newCandidateNums) !== stars){
+            //If candidate numbers still doesnt sum up the exact number of stars, just set up as candidate numbers
             setCandidateNums(newCandidateNums);
         }
         else {
+            //This means that candidate numbers sums up the exact number of stars, so we can mark them as 'used' and upd all other states.
             const newAvailableNums = availableNums.filter( n => !newCandidateNums.includes(n));
             setStars(utils.randomSumIn(newAvailableNums,9));
             setAvailableNums(newAvailableNums);

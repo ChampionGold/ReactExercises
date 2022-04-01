@@ -3,8 +3,8 @@ import NumberButton from "./NumberButton";
 import StarsContainer from "./StarsContainer";
 import utils from "./../../scripts/utils"
 
-const StarMatchGame = (props) => {
-    const defaultSecondsOfGame = 12; //Default number of seconds for the game (just to not write this number all over the code)
+const useGameState = (duration) => {
+    const defaultSecondsOfGame = duration; //Default number of seconds for the game (just to not write this number all over the code)
     const [stars,setStars] = useState(utils.random(1,9)); //Stars
     const [availableNums,setAvailableNums] = useState(utils.range(1,9)); //Available numbers
     const [candidateNums,setCandidateNums] = useState([]); //Candidate Nunbers
@@ -12,12 +12,33 @@ const StarMatchGame = (props) => {
     
     //This side effect has the responsability of the timer
     useEffect(() => {
-        if(secondsLeft > 0 && gameStatus !== 'won'){
+        if(secondsLeft > 0 && availableNums.length > 0){
            const timerId = setTimeout(() => {setSecondsLeft(secondsLeft-1)},1000);
            return () => clearTimeout(timerId);
         }
     });
 
+    const setGameState = (newCandidateNums) => {
+        if(utils.sum(newCandidateNums) !== stars){
+            //If candidate numbers still doesnt sum up the exact number of stars, just set up as candidate numbers
+            setCandidateNums(newCandidateNums);
+        }
+        else {
+            //This means that candidate numbers sums up the exact number of stars, so we can mark them as 'used' and upd all other states.
+            const newAvailableNums = availableNums.filter( n => !newCandidateNums.includes(n));
+            setStars(utils.randomSumIn(newAvailableNums,9));
+            setAvailableNums(newAvailableNums);
+            setCandidateNums([]);
+        }
+    }
+
+    return {stars,availableNums,candidateNums,secondsLeft,setGameState};
+};
+
+const StarMatchGame = (props) => {
+    //Hooks/state managed by a custom hook
+    const {stars,availableNums,candidateNums,secondsLeft,setGameState} = useGameState(15);
+    
     //Checks if selected numbers by user are greater than the number of shown stars.
     const candidatesAreWrong = (candidateNums) => {
         return utils.sum(candidateNums) > stars;
@@ -50,18 +71,8 @@ const StarMatchGame = (props) => {
         const newCandidateNums = 
             currentStatus === 'available' ? candidateNums.concat(number) : candidateNums.filter(cn => cn !== number);
 
-        
-        if(utils.sum(newCandidateNums) !== stars){
-            //If candidate numbers still doesnt sum up the exact number of stars, just set up as candidate numbers
-            setCandidateNums(newCandidateNums);
-        }
-        else {
-            //This means that candidate numbers sums up the exact number of stars, so we can mark them as 'used' and upd all other states.
-            const newAvailableNums = availableNums.filter( n => !newCandidateNums.includes(n));
-            setStars(utils.randomSumIn(newAvailableNums,9));
-            setAvailableNums(newAvailableNums);
-            setCandidateNums([]);
-        }
+        setGameState(newCandidateNums);
+      
 
     };
     
